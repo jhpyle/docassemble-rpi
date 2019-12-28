@@ -1,0 +1,73 @@
+metadata:
+  title: Xmas
+---
+modules:
+  - .led
+---
+mandatory: True
+code: |
+  set_colors()
+---
+question: |
+  What is your favorite Christmas color?
+field: color
+choices:
+  Red: red
+  Green: green
+---
+mandatory: True
+code: |
+  if color == 'red':
+    set_colors(red=True, green=False)
+  else:
+    set_colors(red=False, green=True)
+---
+question: |
+  You mean like this?
+yesno: acceptable
+---
+mandatory: True
+code: |
+  if acceptable:
+    if color == 'red':
+      set_colors(red=False, green=True)
+    else:
+      set_colors(red=True, green=False)
+    if change_mind:
+      ok_great
+    if color == 'red':
+      set_colors(red=True, green=False)
+    else:
+      set_colors(red=False, green=True)
+    ok_fine
+  else:
+    set_colors(red=False, green=False)
+    no_colors
+---
+event: no_colors
+question: |
+  Ok, no colors
+buttons:
+  - Restart: restart
+---
+event: ok_great
+question: |
+  Good, this is better.
+buttons:
+  - Restart: restart
+---
+question: |
+  How about
+  % if color == 'red':
+  green?
+  % else:
+  red?
+  % endif
+field: change_mind
+choices:
+  - "That sounds good": True
+  - "No, I want ${ color }": False
+---
+event: ok_fine
+question: |
+  Have it your way, then!
