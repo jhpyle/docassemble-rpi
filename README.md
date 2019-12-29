@@ -24,6 +24,20 @@ sudo usermod -a -G docker pi
 You might need to restart the Raspberry Pi after doing `usermod` in order to ensure
 that the user `pi` can run Docker commands.
 
+Since the standard images are not built for the ARM architecture, you need to build
+them yourself.
+
+```
+git clone https://github.com/jhpyle/docassemble-os
+cd docassemble-os
+docker build -t jhpyle/docassemble-os .
+cd ..
+git clone https://github.com/jhpyle/docassemble
+cd docassemble
+docker build -t jhpyle/docassemble .
+cd ..
+```
+
 Then create a Docassemble container that has privileged access:
 
 ```
