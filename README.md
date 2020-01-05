@@ -38,10 +38,12 @@ docker build -t jhpyle/docassemble .
 cd ..
 ```
 
+This will take several hours.
+
 Then create a Docassemble container that has privileged access:
 
 ```
-docker run --privileged --restart=always -d -p 80:80 --env DAPYTHONVERSION=3 jhpyle/docassemble
+docker run --privileged --restart=always --stop-timeout=600 -d -p 80:80 --env DAPYTHONVERSION=3 jhpyle/docassemble
 ```
 
 Next, `docker exec` inside of the container.
